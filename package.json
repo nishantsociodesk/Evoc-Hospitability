@@ -1,13 +1,20 @@
 {
-  "name": "evoc-hospitality",
+  "name": "evoc-hospitability",
   "version": "1.0.0",
-  "description": "EVOC Hospitality - MERN Stack Website & Strategy Call Booking System",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "build": "cd client && npm install && npm run build",
     "server": "cd server && npm run dev",
     "client": "cd client && npm run dev",
-    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,yellow\" \"npm run server\" \"npm run client\"",
-    "build": "cd client && npm run build"
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"blue,yellow\" \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.1",
+    "nodemailer": "^10.0.0"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
