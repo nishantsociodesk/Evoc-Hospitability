@@ -149,7 +149,16 @@ export default function BookCallModal({ isOpen, onClose, onBookingSuccess }) {
         body: JSON.stringify(leadPayload),
       });
 
-      const resData = await response.json();
+      const responseText = await response.text();
+      let resData;
+
+      try {
+        resData = JSON.parse(responseText);
+      } catch (parseError) {
+        throw new Error(
+          `Booking service returned an unexpected response (HTTP ${response.status}). Please try again later.`
+        );
+      }
 
       if (!response.ok) {
         throw new Error(resData.message || 'Failed to submit booking');
