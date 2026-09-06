@@ -33,6 +33,19 @@ export const dispatchToGoogleSheet = async (leadPayload) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(leadPayload),
     });
+
+    const responseText = await res.text();
+    let responseBody;
+    try {
+      responseBody = JSON.parse(responseText);
+    } catch (error) {
+      responseBody = null;
+    }
+
+    if (!res.ok || responseBody?.result === 'error') {
+      throw new Error(responseBody?.error || `Google Sheet returned HTTP ${res.status}`);
+    }
+
     console.log(`✓ Forwarded lead to Google Sheet (Gmail): Status ${res.status}`);
     return { dispatched: true, status: res.status };
   } catch (err) {

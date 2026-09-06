@@ -5,7 +5,7 @@ const getEmailConfig = () => ({
   port: Number(process.env.EMAIL_PORT || 465),
   secure: process.env.EMAIL_SECURE !== 'false',
   user: process.env.EMAIL_USER,
-  password: process.env.EMAIL_APP_PASSWORD,
+  password: process.env.EMAIL_APP_PASSWORD?.replace(/\s/g, ''),
   recipient: process.env.BOOKING_NOTIFICATION_EMAIL || process.env.EMAIL_USER,
 });
 

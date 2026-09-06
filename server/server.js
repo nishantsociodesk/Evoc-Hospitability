@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
 
 import bookingRoutes from './routes/bookingRoutes.js';
 import googleSheetRoutes from './routes/googleSheetRoutes.js';
@@ -42,5 +43,11 @@ app.use((err, req, res, next) => {
   });
 });
 
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const port = Number(process.env.PORT || 5000);
+  app.listen(port, () => {
+    console.log(`EVOC API listening on http://localhost:${port}`);
+  });
+}
 
 export default app;
